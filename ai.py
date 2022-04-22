@@ -26,5 +26,5 @@ class Model:
         error = predicted_outputs - expected_outputs
         return np.mean(np.abs(error))
     
-    def learning_rate(self, learning_rate):
+    def learn_rate(self, learning_rate):
         self.learning_rate = learning_rate
