@@ -7,9 +7,9 @@ class Model:
         self.outputs = outputs
         self.weights = np.random.rand(inputs, outputs)
         self.bias = np.random.rand(outputs)
-        self.learning_rate = 0.1
+        self.learning_rate = 0.1 # make this REALLY low to make the ai more accurate
     
-    def predict(self, inputs):
+    def predict(self, inputs): # predicts the based on your own input questions
         return np.dot(inputs, self.weights) + self.bias
 
     def train(self, inputs, expected_outputs):
@@ -17,7 +17,8 @@ class Model:
         error = predicted_outputs - expected_outputs
         self.weights -= self.learning_rate * np.dot(inputs.T, error)
         self.bias -= self.learning_rate * np.sum(error, axis=0)
-
+        
+    # mostly unused:
     def test(self, inputs, expected_outputs):
         predicted_outputs = self.predict(inputs)
         error = predicted_outputs - expected_outputs
