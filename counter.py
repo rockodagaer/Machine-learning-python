@@ -10,4 +10,4 @@ outputs = [[1], [2], [3], [4], [5], [6], [7], [8]] # outputs
 model.train(np.array(inputs), np.array(outputs), epochs=5000) # train the model with 50000 epcochs will take only a min ( more for better output )
 output = model.predict(np.array([[2]])) # predict the output as a float
 print(output) # print the output as a float
-print(round(output[0])) # return it with round() not int() because it relies on that you round the number to make it perfect
+print(round(output[0][0])) # return it with round() not int() because it relies on that you round the number to make it perfect
