@@ -16,29 +16,31 @@ class Model: # the main ai
         return np.dot(inputs, self.weights) + self.bias # return the predicted output (numbers only)
 
     def train(self, inputs, expected_outputs, epochs=1): # train the model
+        # inputs and expected_outputs are lists like [[0], [1], [2]]
+        # epochs is the amount of times it trains the model
         for epoch in range(epochs):
-            predicted_outputs = self.predict(inputs)
-            error = predicted_outputs - expected_outputs
+            predicted_outputs = self.predict(inputs) # predict the inputs now
+            error = predicted_outputs - expected_outputs # get the error amount
             gradient = np.dot(inputs.T, error)
             gradient /= inputs.shape[0]
-            self.weights -= self.learning_rate * gradient
-            self.bias -= self.learning_rate * np.mean(error, axis=0)
+            self.weights -= self.learning_rate * gradient # set the weights to the updated amount
+            self.bias -= self.learning_rate * np.mean(error, axis=0) # set bias to the updated amount
 
-    def train_smart(self, inputs, expected_outputs, epochs=1, need=0.0001):
+    def train_smart(self, inputs, expected_outputs, epochs=1, need=0.0001): # train until model is perfect
         # train and test until the error is low enough
-        while True:
-            self.train(inputs, expected_outputs, epochs)
-            predicted_outputs = self.predict(inputs)
-            error = predicted_outputs - expected_outputs
-            if np.mean(np.abs(error)) < 0.00001:
+        while True: # loop
+            self.train(inputs, expected_outputs, epochs) # train the model
+            predicted_outputs = self.predict(inputs) # predict
+            error = predicted_outputs - expected_outputs # check the error
+            if np.mean(np.abs(error)) < need: # check if error is low enough
                 break
     
-    def train_fast(self, inputs, expected_outputs, epochs=1, time=0.01):
-        # make this train 1 epoch at a time trying to reach the amount of epochs you want but it cuts off at 1 sec
-        start = time.time()
-        for epoch in range(epochs):
-            self.train(inputs, expected_outputs, epochs=1)
-            if time.time() - start > time:
+    def train_fast(self, inputs, expected_outputs, epochs=1, time=0.01): # train for specified amount of time
+        # train until it reaches the specified amount of epochs or it reaches the max time
+        start = time.time() # start timer
+        for epoch in range(epochs): # loop
+            self.train(inputs, expected_outputs, epochs=1) # train 1 epoch
+            if time.time() - start > time: # if takes too long stop the loop
                 break
 
     def test(self, inputs=[], expected_outputs=[]): # test how good it is at predicting the right outputs
@@ -49,10 +51,10 @@ class Model: # the main ai
     def learn_rate(self, learning_rate=0.001): # set learning rate
         self.learning_rate = learning_rate
     
-    def save(self, filename):
+    def save(self, filename): # save your model
         np.save(filename, self.weights)
         np.save(filename + "b", self.bias)
     
-    def load(self, filename):
+    def load(self, filename): # load your model
         self.weights = np.load(filename)
         self.bias = np.load(filename + "b")
