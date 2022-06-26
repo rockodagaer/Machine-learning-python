@@ -1,3 +1,4 @@
+import numpy as np
 from ai import Model
 # this is an example of how to make an accurate counter using the ai.
 # ofcourse it can do much more than this. i made a full calculator with it but you could teach it to do anythind you want
