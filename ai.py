@@ -30,7 +30,7 @@ class Model: # the main ai
             self.train(inputs, expected_outputs, epochs)
             predicted_outputs = self.predict(inputs)
             error = predicted_outputs - expected_outputs
-            if np.mean(np.abs(error)) < 0.00001:
+            if np.mean(np.abs(error)) < need:
                 break
     
     def train_fast(self, inputs, expected_outputs, epochs=1, time=0.01):
