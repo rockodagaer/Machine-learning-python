@@ -29,3 +29,11 @@ and its used like: train_items(self, data="data.json", epochs=5000) this one use
 train_items_smart is the same as train_items but it uses train_smart instead of train which makes it take longer but even more specivec
 here you can see an example of how its used: train_items_smart(self, "data.json", epochs=500, amount=0.0001, progress=False, show=False, retrain=0)
 this also uses data_get, amount is the needed error rate to pass and this should be WAY under 0, progress shows its progress and show shows the epochs per sec.
+
+layer_create create a layer that can be used to train other models
+example: layer_create(self, sizeIn=[1, 1], sizeOut=[1, 1], name="Layer1") sizeIn is the input size and sizeOut is the output size and name is the layer name
+
+layer_get get both in and out models of a layer
+example: layer_get(name="Layer1") returns a list with 2 models like [input_model, output_model]
+
+to train a model using your layer you use layer_TRAIN and replace TRAIN with one of the normal training methods
